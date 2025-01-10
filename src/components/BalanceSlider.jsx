@@ -1,31 +1,35 @@
-import { ArrowLeft, ArrowRight } from '@mui/icons-material'
-import { Box, Slider, Stack, Typography } from '@mui/material'
-import { useState } from 'react'
+import ArrowLeft from '@mui/icons-material/ArrowLeft'
+import ArrowRight from '@mui/icons-material/ArrowRight'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+import Skeleton from '@mui/material/Skeleton'
+import Slider from '@mui/material/Slider'
+import Stack from '@mui/material/Stack'
+import useAudioStore from '../store/audioStore'
 
 const BalanceSlider = () => {
-  const [value, setValue] = useState(0)
+  const balance = useAudioStore((state) => state.balance)
+  const updateField = useAudioStore((state) => state.updateField)
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+  const handleChange = (_, v) => updateField(['balance', v])
+
+  if (typeof balance === 'undefined') return <Skeleton height={80} />
+
   return (
-    <Box>
-      <Typography id="input-slider" gutterBottom>
-        BalanceSlider
-      </Typography>
+    <FormControl>
+      <FormLabel>Balance</FormLabel>
       <Stack spacing={2} direction="row" sx={{ alignItems: 'center', mb: 1 }}>
         <ArrowLeft />
         <Slider
           valueLabelDisplay="auto"
-          aria-label="Volume"
           min={-10}
           max={10}
-          value={value}
+          value={Number(balance)}
           onChange={handleChange}
         />
         <ArrowRight />
       </Stack>
-    </Box>
+    </FormControl>
   )
 }
 

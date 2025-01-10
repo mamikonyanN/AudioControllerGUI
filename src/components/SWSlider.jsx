@@ -1,31 +1,35 @@
-import { VolumeDown, VolumeUp } from '@mui/icons-material'
-import { Box, Slider, Stack, Typography } from '@mui/material'
-import { useState } from 'react'
+import VolumeDown from '@mui/icons-material/VolumeDown'
+import VolumeUp from '@mui/icons-material/VolumeUp'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+import Skeleton from '@mui/material/Skeleton'
+import Slider from '@mui/material/Slider'
+import Stack from '@mui/material/Stack'
+import useAudioStore from '../store/audioStore'
 
 const SWSlider = () => {
-  const [value, setValue] = useState(10)
+  const sw = useAudioStore((state) => state.sw)
+  const updateField = useAudioStore((state) => state.updateField)
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+  const handleChange = (_, v) => updateField(['sw', v])
+
+  if (typeof sw === 'undefined') return <Skeleton height={80} />
+
   return (
-    <Box>
-      <Typography id="input-slider" gutterBottom>
-        SW
-      </Typography>
+    <FormControl>
+      <FormLabel>SW</FormLabel>
       <Stack spacing={2} direction="row" sx={{ alignItems: 'center', mb: 1 }}>
         <VolumeDown />
         <Slider
           valueLabelDisplay="auto"
-          aria-label="Volume"
           min={0}
           max={15}
-          value={value}
+          value={Number(sw)}
           onChange={handleChange}
         />
         <VolumeUp />
       </Stack>
-    </Box>
+    </FormControl>
   )
 }
 

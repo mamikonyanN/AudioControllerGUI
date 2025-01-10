@@ -1,26 +1,35 @@
-import { Grid2 } from '@mui/material'
-import BalanceSlider from './components/BalanceSlider'
-import BassSlider from './components/BassSlider'
-import SWSlider from './components/SwSlider'
-import TrebleSlider from './components/TrebleSlider'
-import VolumeSlider from './components/VolumeSlider'
+import Container from '@mui/material/Container'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+import { useState } from 'react'
+import PrimarySettingsTab from './layouts/PrimarySettingsTab'
+import SecondarySettingsTab from './layouts/SecondarySettingsTab'
+import TabPanel from './ui/TabPanel'
 
-function App() {
+const App = () => {
+  const [value, setValue] = useState(0)
+
+  const handleChange = (_, newValue) => setValue(newValue)
+
   return (
-    <Grid2
-      direction={'column'}
-      container
-      spacing={2}
-      width={300}
-      margin={'auto'}
-      marginY={10}
-    >
-      <VolumeSlider />
-      <SWSlider />
-      <BassSlider />
-      <TrebleSlider />
-      <BalanceSlider />
-    </Grid2>
+    <>
+      <Container sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange}>
+          <Tab label="Primary settins" value={0} />
+          <Tab label="Secondary settings" value={1} />
+        </Tabs>
+      </Container>
+
+      <Container>
+        <TabPanel value={value} index={0}>
+          <PrimarySettingsTab />
+        </TabPanel>
+
+        <TabPanel value={value} index={1}>
+          <SecondarySettingsTab />
+        </TabPanel>
+      </Container>
+    </>
   )
 }
 

@@ -2,15 +2,19 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import { CssBaseline } from '@mui/material'
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router'
 import App from './App.jsx'
-import './index.css'
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+})
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
+  <ThemeProvider theme={darkTheme}>
     <CssBaseline />
     <App />
-  </BrowserRouter>,
+  </ThemeProvider>,
 )
