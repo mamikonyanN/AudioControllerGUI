@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack'
 import useAudioStore from '../store/audioStore'
 
 const TrebleSlider = () => {
+  const state = useAudioStore((state) => state.state)
   const treble = useAudioStore((state) => state.treble)
   const updateField = useAudioStore((state) => state.updateField)
 
@@ -26,6 +27,7 @@ const TrebleSlider = () => {
           max={10}
           value={Number(treble)}
           onChange={handleChange}
+          disabled={state === 0}
         />
         <VolumeUp />
       </Stack>

@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack'
 import useAudioStore from '../store/audioStore'
 
 const VolumeSlider = () => {
+  const state = useAudioStore((state) => state.state)
   const volume = useAudioStore((state) => state.volume)
   const updateField = useAudioStore((state) => state.updateField)
 
@@ -26,6 +27,7 @@ const VolumeSlider = () => {
           valueLabelDisplay="auto"
           onChange={handleChange}
           value={Number(volume)}
+          disabled={state === 0}
         />
         <VolumeUp />
       </Stack>

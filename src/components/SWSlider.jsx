@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack'
 import useAudioStore from '../store/audioStore'
 
 const SWSlider = () => {
+  const state = useAudioStore((state) => state.state)
   const sw = useAudioStore((state) => state.sw)
   const updateField = useAudioStore((state) => state.updateField)
 
@@ -26,6 +27,7 @@ const SWSlider = () => {
           max={15}
           value={Number(sw)}
           onChange={handleChange}
+          disabled={state === 0}
         />
         <VolumeUp />
       </Stack>

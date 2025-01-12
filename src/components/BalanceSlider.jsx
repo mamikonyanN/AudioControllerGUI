@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack'
 import useAudioStore from '../store/audioStore'
 
 const BalanceSlider = () => {
+  const state = useAudioStore((state) => state.state)
   const balance = useAudioStore((state) => state.balance)
   const updateField = useAudioStore((state) => state.updateField)
 
@@ -26,6 +27,7 @@ const BalanceSlider = () => {
           max={10}
           value={Number(balance)}
           onChange={handleChange}
+          disabled={state === 0}
         />
         <ArrowRight />
       </Stack>
